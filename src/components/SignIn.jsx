@@ -16,6 +16,9 @@ import SignUp from './SignUp';
 
 const theme = createTheme();
 
+//TODO need to implement React Router set up to render various pages
+// SignIn should call SignUp when link is hit
+
 export default function SignIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,12 +28,6 @@ export default function SignIn() {
       password: data.get('password'),
     });
   };
-
-  const handleSignUpClick = (event) => {
-    return (
-        <SignUp/>
-    )
-  }
 
   return (
     <ThemeProvider theme={theme}>
