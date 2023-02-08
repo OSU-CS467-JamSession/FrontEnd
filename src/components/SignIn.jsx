@@ -13,6 +13,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SignUp from './SignUp';
+import { BrowserRouter as Router, Switch, 
+  Route, redirect,  useNavigate} from "react-router-dom";
 
 const theme = createTheme();
 
@@ -20,6 +22,9 @@ const theme = createTheme();
 // SignIn should call SignUp when link is hit
 
 export default function SignIn() {
+
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -28,6 +33,16 @@ export default function SignIn() {
       password: data.get('password'),
     });
   };
+
+  // const handleSignUpClick = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //     email: data.get('email'),
+  //     password: data.get('password'),
+  //   });
+  //   navigate("/SignUp")
+  // };
 
   return (
     <ThemeProvider theme={theme}>
@@ -103,7 +118,9 @@ export default function SignIn() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link component="button" onClick={() => handleSignUpClick()} variant="body2">
+                  {/* <Link component="button" onClick={() => handleSignUpClick} variant="body2">
+                    {"Don't have an account? Sign Up"} */}
+                    <Link href="./SignUp" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
