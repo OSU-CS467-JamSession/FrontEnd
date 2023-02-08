@@ -13,18 +13,40 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SignUp from './SignUp';
+import {getAllUsers} from './services/getUsers'
 import { BrowserRouter as Router, Switch, 
   Route, redirect,  useNavigate} from "react-router-dom";
+  import { useLocation} from "react-router-dom";
 
 const theme = createTheme();
 
 //TODO need to implement React Router set up to render various pages
 // SignIn should call SignUp when link is hit
 
-export default function SignIn() {
+export default function Profile() {
 
   const navigate = useNavigate();
+  const location = useLocation();
 
+  const state = location.state;
+  console.log(state);
+
+  const response = getAllUsers()
+  var printUsers = response.then(function(result) {
+    console.log(result._embedded.users)
+ });
+ 
+//   var myObject = JSON.parse(response);
+  console.log(printUsers);
+  const emailProfile = state.email;
+
+//   const printUsers = async () => {
+//     const u = await users;
+//     console.log(u);
+//   };
+  
+//   printUsers();
+ 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -32,10 +54,6 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     });
-    const email = data.get('email');
-    const password = data.get('password');
-    const profileObject = {email:email, password:password};
-    navigate('./Profile', {state: profileObject})
   };
 
   // const handleSignUpClick = (event) => {
@@ -80,56 +98,9 @@ export default function SignIn() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h2">
-              Jam Session
+               get {emailProfile}'s profile
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="./RecoverPass" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  {/* <Link component="button" onClick={() => handleSignUpClick} variant="body2">
-                    {"Don't have an account? Sign Up"} */}
-                    <Link href="./SignUp" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
-            </Box>
+
           </Box>
         </Grid>
       </Grid>

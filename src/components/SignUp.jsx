@@ -17,9 +17,18 @@ const SignUp = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
       email: data.get('email'),
       password: data.get('password'),
     });
+    const email = data.get('email');
+    const lastName =  data.get('lastName');
+    const firstName = data.get('firstName');
+    const password = data.get('password');
+    const profileObject = {email:email, lastName:lastName, firstName:firstName,password:password};
+    // navigate('./Profile', {state: profileObject})
+     //TODO Create user with profileObject
   };
 
   return (
@@ -96,7 +105,7 @@ const SignUp = () => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+              <Link href="./" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
