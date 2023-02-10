@@ -13,6 +13,17 @@ export async function authLogin(email){
             console.log("true")
             return true}
     }
-    
+
     return false 
 }
+
+export function isLogin(email,password, profileObject, navigate){
+    const auth = authLogin(email).then(function(result) {
+        console.log("result",result)
+        if(result == true){
+            navigate('./Profile', {state: profileObject})
+        }else{
+            window.alert("Invalid Log in");}
+        })
+
+} 
