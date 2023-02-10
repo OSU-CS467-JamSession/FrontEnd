@@ -13,8 +13,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SignUp from './SignUp';
+import { authLogin } from './services/authLogin';
 import { BrowserRouter as Router, Switch, 
   Route, redirect,  useNavigate} from "react-router-dom";
+import Profile from './Profile';
 
 const theme = createTheme();
 
@@ -32,21 +34,20 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     });
+
     const email = data.get('email');
     const password = data.get('password');
     const profileObject = {email:email, password:password};
-    navigate('./Profile', {state: profileObject})
-  };
 
-  // const handleSignUpClick = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get('email'),
-  //     password: data.get('password'),
-  //   });
-  //   navigate("/SignUp")
-  // };
+    const auth = authLogin(email).then(function(result) {
+          console.log("result",result)
+          if(result == true){
+            navigate('./Profile', {state: profileObject})
+          }else{
+            window.alert("Invalid Log in");}
+          
+        })
+  };
 
   return (
     <ThemeProvider theme={theme}>

@@ -31,21 +31,7 @@ export default function Profile() {
   const state = location.state;
   console.log(state);
 
-  const response = getAllUsers()
-  var printUsers = response.then(function(result) {
-    console.log(result._embedded.users)
- });
- 
-//   var myObject = JSON.parse(response);
-  console.log(printUsers);
   const emailProfile = state.email;
-
-//   const printUsers = async () => {
-//     const u = await users;
-//     console.log(u);
-//   };
-  
-//   printUsers();
  
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -55,16 +41,6 @@ export default function Profile() {
       password: data.get('password'),
     });
   };
-
-  // const handleSignUpClick = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get('email'),
-  //     password: data.get('password'),
-  //   });
-  //   navigate("/SignUp")
-  // };
 
   return (
     <ThemeProvider theme={theme}>
@@ -98,7 +74,7 @@ export default function Profile() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h2">
-               get {emailProfile}'s profile
+               {emailProfile}'s profile
             </Typography>
 
           </Box>
