@@ -9,17 +9,31 @@
   import MusicNoteIcon from '@mui/icons-material/MusicNote';
   import Typography from '@mui/material/Typography';
   import Container from '@mui/material/Container';
-
+import { createUser } from './services/createUser';
+import { BrowserRouter as Router, Switch, 
+  Route, redirect,  useNavigate} from "react-router-dom";
 
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
       email: data.get('email'),
       password: data.get('password'),
     });
+    const email = data.get('email');
+    const lastName =  data.get('lastName');
+    const firstName = data.get('firstName');
+    const password = data.get('password');
+    const profileObject = {email:email, lastName:lastName, firstName:firstName, password:password};
+    
+    createUser(profileObject,navigate)
+    
+
   };
 
   return (
@@ -96,7 +110,7 @@ const SignUp = () => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+              <Link href="./" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
