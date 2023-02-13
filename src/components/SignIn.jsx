@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import SignUp from './SignUp';
+import { getUsersByExp} from './services/getUsersByExp';
 import { authLogin, isLogin } from './services/authLogin';
 import { BrowserRouter as Router, Switch, 
   Route, redirect,  useNavigate} from "react-router-dom";
@@ -29,18 +30,33 @@ export default function SignIn() {
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
+
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
-
+    
+    // obatin sign in info and creat an object
     const email = data.get('email');
     const password = data.get('password');
     const profileObject = {email:email, password:password};
     
+    // check for authentic login
     isLogin(email, password, profileObject, navigate)
+
+    // TEST code for getUsersByExperience
+    // var expArr = []
+    // const userExp = 3
+    // getUsersByExp(userExp).then(function(result) {
+    //   var arrayLength = result.length;
+    //   for (var i = 0; i < arrayLength; i++) {
+
+    //     expArr.push(result[i])
+    //   }
+    // })
+    // console.log(expArr)
 
     };
     

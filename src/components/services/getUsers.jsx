@@ -1,5 +1,5 @@
 
-export async function getAllUsers(){
+export async function getAllUsersQ(){
 
     const requestOptions = {
         method: 'GET',
@@ -17,6 +17,7 @@ export async function getAllUsers(){
             })
         }
         const response = await fetch('https://jamsession-cs467-w2023.uw.r.appspot.com/users', requestOptions);
+
         return response.json()
 
     }catch(error){

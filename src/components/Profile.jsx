@@ -9,6 +9,7 @@ import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -52,34 +53,34 @@ export default function Profile() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/k3heD_KwH0A)',
-            backgroundRepeat: 'no-repeat',
+            // backgroundImage: 'url(https://source.unsplash.com/k3heD_KwH0A)',
+            // backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
             backgroundSize: 'cover',
             backgroundPosition: 'left',
           }}
         />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <Box
-            sx={{
-              my: 8,
-              mx: 4,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <MusicNoteIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Profile: 
+          </Typography>
+      
             <Typography component="h1" variant="h2">
                {emailProfile}'s profile
             </Typography>
-
           </Box>
         </Grid>
-      </Grid>
     </ThemeProvider>
   );
 }

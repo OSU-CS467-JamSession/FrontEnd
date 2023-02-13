@@ -1,8 +1,8 @@
-import { getAllUsers } from "./getUsers";
+import { getAllUsersQ } from "./getUsers";
 
 export async function authLogin(email){
         
-    const response = await getAllUsers()
+    const response = await getAllUsersQ()
 
     const users = response._embedded.users
 

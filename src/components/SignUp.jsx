@@ -9,10 +9,13 @@
   import MusicNoteIcon from '@mui/icons-material/MusicNote';
   import Typography from '@mui/material/Typography';
   import Container from '@mui/material/Container';
-
+import { createUser } from './services/createUser';
+import { BrowserRouter as Router, Switch, 
+  Route, redirect,  useNavigate} from "react-router-dom";
 
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -26,9 +29,11 @@ const SignUp = () => {
     const lastName =  data.get('lastName');
     const firstName = data.get('firstName');
     const password = data.get('password');
-    const profileObject = {email:email, lastName:lastName, firstName:firstName,password:password};
-    // navigate('./Profile', {state: profileObject})
-     //TODO Create user with profileObject
+    const profileObject = {email:email, lastName:lastName, firstName:firstName, password:password};
+    
+    createUser(profileObject,navigate)
+    
+
   };
 
   return (
