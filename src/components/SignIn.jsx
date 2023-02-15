@@ -138,7 +138,7 @@ export default function SignIn() {
                   {/* <Link component="button" onClick={() => handleSignUpClick} variant="body2">
                     {"Don't have an account? Sign Up"} */}
                     <Link href="./SignUp" variant="body2">
-                    {"Don't have an account? Sign Up!"}
+                    {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
               </Grid>
