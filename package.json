@@ -24,7 +24,7 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "predeploy" : "npm run build",
-    "prestart": "npm install -g serve",
+    "prestart": "npm install -g serve"
   },
   "eslintConfig": {
     "extends": [
