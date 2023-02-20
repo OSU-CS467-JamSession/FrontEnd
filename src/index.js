@@ -15,6 +15,8 @@ ReactDOM.createRoot(document.querySelector("#app")).render(
     <App />
   </React.StrictMode>
   {/* <BrowserRouter>
+  </React.StrictMode> */}
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<SignIn />} />
         <Route path="/SignUp" element={<SignUp />} />
