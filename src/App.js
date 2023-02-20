@@ -14,7 +14,7 @@ function App() {
   return (
     <><ThemeProvider theme={theme}>
       <div className="App">
-        <Dashboard />
+        <SignIn />
       </div>
     </ThemeProvider>
 
