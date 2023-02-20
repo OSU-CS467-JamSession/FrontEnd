@@ -5,6 +5,7 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import { BrowserRouter, Routes, 
   Route, Redirect,  useNavigate} from "react-router-dom";
+import Dashboard from './components/Dashboard';
 
 const theme = createTheme();
 
@@ -13,7 +14,7 @@ function App() {
   return (
     <><ThemeProvider theme={theme}>
       <div className="App">
-        <SignIn />
+        <Dashboard />
       </div>
     </ThemeProvider>
 

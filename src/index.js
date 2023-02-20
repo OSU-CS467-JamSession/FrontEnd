@@ -11,15 +11,16 @@ import { BrowserRouter, Routes,
 
 ReactDOM.createRoot(document.querySelector("#app")).render(
   <>
-  {/* <React.StrictMode>
+  <React.StrictMode>
     <App />
-  </React.StrictMode> */}
-  <BrowserRouter>
+  </React.StrictMode>
+  {/* <BrowserRouter>
       <Routes>
         <Route path="/" element={<SignIn />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/RecoverPass" element={<RecoverPass />} />
         <Route path="/Profile" element={<Profile />} />
       </Routes>
-    </BrowserRouter></>
+    </BrowserRouter> */}</>
 );
+    
