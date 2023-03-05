@@ -17,11 +17,6 @@ import Dashboard from "./components/Dashboard";
 
 ReactDOM.createRoot(document.querySelector("#app")).render(
   <>
-    {/* <React.StrictMode>
-    <App />
-  </React.StrictMode>
-  <BrowserRouter>
-  </React.StrictMode> */}
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<SignIn />} />
