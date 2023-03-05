@@ -1,5 +1,5 @@
 // const profileObject = {email:email, lastName:lastName, firstName:firstName, password:password};
-export async function createUser(profileObject){
+export async function createUser(profileObject, navigate){
 
     const requestOptions = {
         method: 'POST',
@@ -46,11 +46,12 @@ export async function createUser(profileObject){
 response.json().then(response => {
     return response.ok;
 });
-        // navigate('./')
+        navigate('/')
 
     }catch(error){
         
         console.log(error)
+        // navigate('./')
         
         
     }

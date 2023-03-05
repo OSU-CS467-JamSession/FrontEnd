@@ -1,4 +1,5 @@
 import { getAllUsersQ } from "./getUsers";
+import { getThisUserQ } from "./getThisUser";
 
 export async function authLogin(email){
         
@@ -11,7 +12,8 @@ export async function authLogin(email){
         console.log(users[i].email, email);
         if (users[i].email == email){
             console.log("true")
-            return true}
+
+            return users[i].user_id}
     }
 
     return false 
@@ -20,8 +22,10 @@ export async function authLogin(email){
 export function isLogin(email,password, profileObject, navigate){
     const auth = authLogin(email).then(function(result) {
         console.log("result",result)
-        if(result == true){
-            navigate('./Profile', {state: profileObject})
+        const user_id = result
+        if(result != false){
+            // const user = getThisUserQ(result)
+            navigate('./Profile', {state: user_id})
         }else{
             window.alert("Invalid Log in");}
         })

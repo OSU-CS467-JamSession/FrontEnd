@@ -21,6 +21,14 @@ import { mainListItems, secondaryListItems } from './ListItems';
 import Chart from './MyPosts';
 import Deposits from './Instruments';
 import Orders from './UserPosts';
+import { BrowserRouter as Router, Switch, 
+  Route, redirect,  useNavigate} from "react-router-dom";
+  import { useLocation} from "react-router-dom";
+import { getThisUserQ } from './services/getThisUser';
+import { getAccordionDetailsUtilityClass } from '@mui/material';
+import {useEffect, useState} from 'react';
+import { getInstrumentsByUserQ } from './services/getInstrumentsByUser';
+import { getGenresByUserQ } from './services/getGenresByUser';
 
 function Copyright(props) {
   return (
@@ -84,10 +92,43 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 function DashboardContent() {
+  const location = useLocation();
+  const state = location.state;
+
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  const [user, setUser] = React.useState(null);
+  const [instruments, setInstruments] = React.useState(null);
+  const [genres, setGenres] = React.useState(null);
+
+  useEffect(() => {
+    getThisUserQ(state)
+      .then(result => setUser(result))
+      .catch(err => console.error(err));
+  }, []);
+
+  useEffect(() => {
+    getInstrumentsByUserQ(state)
+      .then(result => setInstruments(result))
+      .catch(err => console.error(err));
+  }, []);
+
+  useEffect(() => {
+    getGenresByUserQ(state)
+      .then(result => setGenres(result))
+      .catch(err => console.error(err));
+  }, []);
+
+  if (user === null) return <div>loading...</div>;
+  if (instruments === null) return <div>loading...</div>;
+  if (genres === null) return <div>loading...</div>;
+  
+  console.log(user)
+  console.log(instruments)
+  console.log(instruments)
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -118,7 +159,7 @@ function DashboardContent() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              {user.name_first}'s Dashboard
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">

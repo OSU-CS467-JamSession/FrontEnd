@@ -41,7 +41,7 @@ export default function SignIn() {
     // obatin sign in info and creat an object
     const email = data.get('email');
     const password = data.get('password');
-    const profileObject = {email:email, password:password};
+    var profileObject = {email:email, password:password};
     
     // check for authentic login
     isLogin(email, password, profileObject, navigate)

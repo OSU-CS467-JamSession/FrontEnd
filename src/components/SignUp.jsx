@@ -9,7 +9,8 @@ import Box from "@mui/material/Box";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import AlertDialog from "./prompts/AlertDialog";
+// import AlertDialog from "./prompts/AlertDialog";
+import { createUser } from "./services/createUser";
 
 import {
   BrowserRouter as Router,
@@ -21,7 +22,24 @@ import {
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const handleSubmit = (event) => {};
+  const handleSubmit = (event) => {
+
+    console.log("creating user")
+
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    
+      const email =  data.get('email')
+      const password = data.get('password')
+      const firstName= data.get('firstName')
+      const lastName= data.get('lastName')
+
+
+    const profileObject = {email:email, password:password, firstName:firstName, lastName:lastName};
+    createUser(profileObject, navigate);
+    
+
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -85,7 +103,15 @@ const SignUp = () => {
               />
             </Grid>
           </Grid>
-          <AlertDialog />
+          <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
+          {/* <AlertDialog /> */}
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="./" variant="body2">
