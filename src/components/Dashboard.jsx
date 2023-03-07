@@ -25,10 +25,15 @@ import { BrowserRouter as Router, Switch,
   Route, redirect,  useNavigate} from "react-router-dom";
   import { useLocation} from "react-router-dom";
 import { getThisUserQ } from './services/getThisUser';
-import { getAccordionDetailsUtilityClass } from '@mui/material';
+import { Button, getAccordionDetailsUtilityClass } from '@mui/material';
 import {useEffect, useState} from 'react';
 import { getInstrumentsByUserQ } from './services/getInstrumentsByUser';
 import { getGenresByUserQ } from './services/getGenresByUser';
+import { deleteThisUserQ } from './services/deleteThisUser';
+import TextField from "@mui/material/TextField";
+import { createInstrument } from './services/createInstrument';
+import { getAllInstrumentsQ } from './services/getAllInstruments';
+import { addInstrumentsForThisUserQ } from './services/addInstrumentForThisUser';
 
 function Copyright(props) {
   return (
@@ -92,6 +97,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 function DashboardContent() {
+
+  const navigate = useNavigate();
+
   const location = useLocation();
   const state = location.state;
 
@@ -101,8 +109,9 @@ function DashboardContent() {
   };
 
   const [user, setUser] = React.useState(null);
-  const [instruments, setInstruments] = React.useState(null);
+  var [instruments, setInstruments] = React.useState(null);
   const [genres, setGenres] = React.useState(null);
+  const [allInstruments, setAllInstruments] = React.useState(null);
 
   useEffect(() => {
     getThisUserQ(state)
@@ -122,13 +131,74 @@ function DashboardContent() {
       .catch(err => console.error(err));
   }, []);
 
+  useEffect(() => {
+    getAllInstrumentsQ(state)
+      .then(result => setAllInstruments(result._embedded.instruments))
+      .catch(err => console.error(err));
+  }, []);
+
   if (user === null) return <div>loading...</div>;
   if (instruments === null) return <div>loading...</div>;
   if (genres === null) return <div>loading...</div>;
+  if (allInstruments === null) return <div>loading...</div>;
   
   console.log(user)
   console.log(instruments)
-  console.log(instruments)
+  console.log(genres)
+  console.log(allInstruments)
+
+  const allInstNames = allInstruments.name
+  const allInstId = allInstruments.instrument_id
+
+  const delUser = () => {
+    console.log('delete this user')
+    deleteThisUserQ(user.user_id)
+    navigate('/')
+}
+
+const addInst = (event) => {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  const instrument = data.get('instrument')
+  const string_user = JSON.stringify(user.user_id)
+  const string_inst = JSON.stringify(instrument)
+
+  var cur_inst = []
+
+  var arrayLength = instruments.length;
+    for (var i = 0; i < arrayLength; i++) {
+        console.log("cure", instruments[i].name);
+        cur_inst.push(instruments[i]._links.instrument.href)
+    }
+  console.log('add instrument for this user',string_user, instrument)
+
+  cur_inst.push(instrument)
+  addInstrumentsForThisUserQ( string_user,cur_inst)
+
+  // set new array of instruments
+  getInstrumentsByUserQ(state)
+  .then(result => setInstruments(result))
+  .catch(err => console.error(err));
+
+}
+
+const addGenre = () => {
+  console.log('add genre for this user')
+}
+
+const createGenre = () => {
+  console.log('create a genre')
+}
+
+const createInst = (event) => {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  const instrument =  data.get('instrument')
+  const type = data.get('type')
+  console.log('create an instrument ', instrument, type)
+  createInstrument(instrument,type)
+
+}
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -159,7 +229,9 @@ function DashboardContent() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              {user.name_first}'s Dashboard
+              {/* {user.name_first}'s Dashboard */}
+              Dashboard
+              
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -226,6 +298,7 @@ function DashboardContent() {
                   }}
                 >
                   <Deposits />
+                  
                 </Paper>
               </Grid>
               {/* Recent Orders */}
@@ -233,8 +306,64 @@ function DashboardContent() {
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                   <Orders />
                 </Paper>
-              </Grid>
-            </Grid>
+                {/* <Button onClick={delUser}>Delete this user</Button> */}
+                {/* <Button onClick={addInst}>Add instrument</Button> */}
+                {/* <Button onClick={addGenre}>Add Genre</Button> */}
+                {/* <Box component="form" noValidate onSubmit={addInst} sx={{ mt: 3 }}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <select  name="instrument"
+                        required
+                        fullWidth
+                        id="instrument"> 
+                      <option value="instrument_id"> -- Select an instrument -- </option>
+                      {allInstruments.map((allInstruments) => <option value={allInstruments._links.instrument.href}>{allInstruments.name}</option>)}
+                    </select>
+                    </Grid>
+                  </Grid>
+                  <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                      >
+                        Add Instrument
+                  </Button>
+                </Box> */}
+                {/* <Box component="form" noValidate onSubmit={createInst} sx={{ mt: 3 }}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        name="instrument"
+                        required
+                        fullWidth
+                        id="instrument"
+                        label="Instrument"
+                        autoFocus
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        name="type"
+                        required
+                        fullWidth
+                        id="type"
+                        label="type"
+                        autoFocus
+                      />
+                    </Grid>
+                  </Grid>
+                  <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                      >
+                        Create Instrument
+                  </Button>
+                </Box> */}
+                </Grid>
+                </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>

@@ -1,4 +1,4 @@
-export async function getGenresByUserQ(user_id){
+export async function getAllInstrumentsQ(){
 
     const requestOptions = {
         method: 'GET',
@@ -15,16 +15,13 @@ export async function getGenresByUserQ(user_id){
                 }
             })
         }
-        var base_url =  'https://jamsession-cs467-w2023.uw.r.appspot.com/users/'
-        return await fetch(base_url.concat(user_id).concat('/genres'), requestOptions)
-        .then((response) => response.json())
-        .then((user) => {
-        var genres = user._embedded.genres
-        return genres
-        });
+        const response = await fetch('https://jamsession-cs467-w2023.uw.r.appspot.com/instruments', requestOptions);
+
+        return response.json()
 
     }catch(error){
         console.log(error)
         return []
     }
+
 }

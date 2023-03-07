@@ -1,7 +1,7 @@
-export async function getGenresByUserQ(user_id){
+export async function deleteThisUserQ(user_id){
 
     const requestOptions = {
-        method: 'GET',
+        method: 'DELETE',
         headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*", 'mode':'no-cors'},
     };
 
@@ -15,16 +15,16 @@ export async function getGenresByUserQ(user_id){
                 }
             })
         }
+        console.log('https://jamsession-cs467-w2023.uw.r.appspot.com/users/'.concat(user_id))
         var base_url =  'https://jamsession-cs467-w2023.uw.r.appspot.com/users/'
-        return await fetch(base_url.concat(user_id).concat('/genres'), requestOptions)
+        
+        return await fetch(base_url.concat(user_id), requestOptions)
         .then((response) => response.json())
         .then((user) => {
-        var genres = user._embedded.genres
-        return genres
+            return true
         });
-
     }catch(error){
         console.log(error)
-        return []
+        return false
     }
 }
