@@ -28,6 +28,7 @@
     "predeploy" : "npm run build",
     "prestart": "npm install -g serve"
   },
+
   "eslintConfig": {
     "extends": [
       "react-app",
