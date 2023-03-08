@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import * as React from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -17,12 +17,10 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems } from "./ListItems";
-import Instruments from "./Instruments/Instruments";
+import { mainListItems, secondaryListItems } from "./ListItems";
+import Chart from "./MyPosts";
+import Deposits from "./Instruments";
 import Orders from "./UserPosts";
-import { useLocation } from "react-router-dom";
-
-const UserContext = React.createContext();
 
 function Copyright(props) {
   return (
@@ -91,12 +89,45 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 function DashboardContent() {
+  const location = useLocation();
+  const state = location.state;
+
   const [open, setOpen] = React.useState(true);
   const location = useLocation();
   const userID = location.state;
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  const [user, setUser] = React.useState(null);
+  const [instruments, setInstruments] = React.useState(null);
+  const [genres, setGenres] = React.useState(null);
+
+  useEffect(() => {
+    getThisUserQ(state)
+      .then((result) => setUser(result))
+      .catch((err) => console.error(err));
+  }, []);
+
+  useEffect(() => {
+    getInstrumentsByUserQ(state)
+      .then((result) => setInstruments(result))
+      .catch((err) => console.error(err));
+  }, []);
+
+  useEffect(() => {
+    getGenresByUserQ(state)
+      .then((result) => setGenres(result))
+      .catch((err) => console.error(err));
+  }, []);
+
+  if (user === null) return <div>loading...</div>;
+  if (instruments === null) return <div>loading...</div>;
+  if (genres === null) return <div>loading...</div>;
+
+  console.log(user);
+  console.log(instruments);
+  console.log(instruments);
 
   useEffect(() => {
     const options = {
@@ -141,7 +172,7 @@ function DashboardContent() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              {user.name_first}'s Dashboard
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
