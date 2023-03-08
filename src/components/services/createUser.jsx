@@ -85,13 +85,14 @@ export async function createUser(profileObject, navigate){
         .then((responseLogin) => {
             if(responseLogin) {
                 console.log(responseLogin);
+                navigate('/')
                 return responseLogin.ok;
             }
             else {
+                window.alert("Signup Failed - Email Already In Use");
                 return false;
             }
         })
-        navigate('/')
     }
     catch(error){
         console.log(error)
