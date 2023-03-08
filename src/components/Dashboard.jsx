@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -13,32 +13,12 @@ import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems, secondaryListItems } from "./ListItems";
-import Chart from "./MyPosts";
-import Deposits from "./Instruments";
-import Orders from "./UserPosts";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import { mainListItems } from "./ListItems";
+import ContentCard from "./Instruments/ContentCard";
+import { useLocation } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -89,45 +69,12 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 function DashboardContent() {
-  const location = useLocation();
-  const state = location.state;
-
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
   const location = useLocation();
   const userID = location.state;
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
-  const [user, setUser] = React.useState(null);
-  const [instruments, setInstruments] = React.useState(null);
-  const [genres, setGenres] = React.useState(null);
-
-  useEffect(() => {
-    getThisUserQ(state)
-      .then((result) => setUser(result))
-      .catch((err) => console.error(err));
-  }, []);
-
-  useEffect(() => {
-    getInstrumentsByUserQ(state)
-      .then((result) => setInstruments(result))
-      .catch((err) => console.error(err));
-  }, []);
-
-  useEffect(() => {
-    getGenresByUserQ(state)
-      .then((result) => setGenres(result))
-      .catch((err) => console.error(err));
-  }, []);
-
-  if (user === null) return <div>loading...</div>;
-  if (instruments === null) return <div>loading...</div>;
-  if (genres === null) return <div>loading...</div>;
-
-  console.log(user);
-  console.log(instruments);
-  console.log(instruments);
 
   useEffect(() => {
     const options = {
@@ -140,7 +87,7 @@ function DashboardContent() {
       options
     )
       .then((response) => response.json())
-      .then((data) => console.log(data._links.instruments))
+      .then((data) => console.log(data._links.instruments.href))
       .catch((err) => console.error(err));
   }, []);
   return (
@@ -172,7 +119,7 @@ function DashboardContent() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              {user.name_first}'s Dashboard
+              {/* {user.name_first}'s Dashboard */}
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -212,7 +159,6 @@ function DashboardContent() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              {/* Chart */}
               <Grid item xs={12} md={8} lg={9}>
                 <Paper
                   sx={{
@@ -222,10 +168,9 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                  <Instruments />
+                  <ContentCard title="Instruments" userID={userID} />
                 </Paper>
               </Grid>
-              {/* Recent Deposits */}
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
@@ -234,18 +179,14 @@ function DashboardContent() {
                     flexDirection: "column",
                     height: 240,
                   }}
-                >
-                  {/* <Deposits /> */}
-                </Paper>
+                ></Paper>
               </Grid>
-              {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <Orders />
+                  Posts
                 </Paper>
               </Grid>
             </Grid>
-            <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
       </Box>

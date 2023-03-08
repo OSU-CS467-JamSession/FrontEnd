@@ -1,13 +1,11 @@
-import * as React from "react";
-import { useTheme } from "@mui/material/styles";
-import Link from "@mui/material/Link";
+import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Title from "../Title";
-import InstrumentButtons from "./InstrumentButtons";
+import FormDialog from "./FormDialog";
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -23,12 +21,27 @@ const rows = [
   createData(1, "16 Dec, 2022", "GR8Full DED", "Bass", 840),
 ];
 
-export default function Instruments() {
-  const theme = useTheme();
+export default function ContentCard({ title, userID }) {
+  const [instruments, setInstruments] = useState();
+
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    };
+
+    fetch(
+      `https://jamsession-cs467-w2023.uw.r.appspot.com/users/${userID}/instruments`,
+      options
+    )
+      .then((response) => response.json())
+      .then((data) => setInstruments(data))
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <React.Fragment>
-      <Title>Instruments</Title>
+      <Title>{title}</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -43,7 +56,7 @@ export default function Instruments() {
               <TableCell>{row.date}</TableCell>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.shipTo}</TableCell>
-              <InstrumentButtons />
+              <FormDialog userID={userID} />
             </TableRow>
           ))}
         </TableBody>

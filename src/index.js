@@ -1,11 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import RecoverPass from "./components/RecoverPass";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
-import Profile from "./components/Profile";
 import {
   BrowserRouter,
   Routes,
