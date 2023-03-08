@@ -8,8 +8,8 @@ import Title from "../Title";
 import FormDialog from "./FormDialog";
 
 // Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
+function createData(name, type) {
+  return { name, type };
 }
 
 function preventDefault(event) {
@@ -22,7 +22,8 @@ const rows = [
 ];
 
 export default function ContentCard({ title, userID }) {
-  const [instruments, setInstruments] = useState();
+  const [userAttributes, setUserAttributes] = useState([]);
+  const [attributeAdded, setAttributeAdded] = useState(false);
 
   useEffect(() => {
     const options = {
@@ -35,32 +36,40 @@ export default function ContentCard({ title, userID }) {
       options
     )
       .then((response) => response.json())
-      .then((data) => setInstruments(data))
+      .then((data) => setUserAttributes(data._embedded.instruments))
       .catch((err) => console.error(err));
-  }, []);
+  }, [attributeAdded]);
 
   return (
-    <React.Fragment>
-      <Title>{title}</Title>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Instrument</TableCell>
-            <TableCell>Experience</TableCell>
-            <TableCell>Years Played</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.shipTo}</TableCell>
-              <FormDialog userID={userID} />
+    console.log(userAttributes),
+    (
+      <React.Fragment>
+        <Title>{title}</Title>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>Instrument</TableCell>
+              <TableCell>Experience</TableCell>
+              <TableCell>Years Played</TableCell>
+              <TableCell>Edit</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </React.Fragment>
+          </TableHead>
+          <TableBody>
+            {userAttributes.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell>{row.name}</TableCell>
+                <TableCell>{row.type}</TableCell>
+                <TableCell></TableCell>
+
+                <FormDialog
+                  userID={userID}
+                  setAttributeAdded={setAttributeAdded}
+                />
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </React.Fragment>
+    )
   );
 }
