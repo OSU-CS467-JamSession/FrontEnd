@@ -5,6 +5,10 @@ export async function authenticateUserQ(credentialsObject){
         headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*", 'mode':'no-cors'},
     };
 
+    const prodUrl = 'https://jamsession-cs467-w2023.uw.r.appspot.com/';
+    const devUrl = 'http://localhost:8080/';
+    const url = prodUrl;
+
     try{
         function promisedParseJSON(json) {
             return new Promise((resolve, reject) => {
@@ -32,7 +36,7 @@ export async function authenticateUserQ(credentialsObject){
         }
         console.log(body)
 
-        const response = await fetch('https://jamsession-cs467-w2023.uw.r.appspot.com/login', {
+        const response = await fetch(url + 'login', {
             method: 'POST',
             headers: headers,
             body: JSON.stringify(body),
