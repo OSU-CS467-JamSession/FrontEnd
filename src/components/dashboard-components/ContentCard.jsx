@@ -88,10 +88,9 @@ export default function ContentCard({ title, userID }) {
           />
         </Title>
         <Table size="small">
-        {userAttributes.length != 0 ? (setTableHeaders()) : null}
+          {userAttributes.length != 0 ? (setTableHeaders()) : null}
           <TableBody>
-            {userAttributes.length != 0 ?
-              (
+            {userAttributes.length != 0 ? (
                 userAttributes.map((row) => (
                   <TableRow key={row.id}>
                     <TableCell>{row.name}</TableCell>
@@ -101,8 +100,7 @@ export default function ContentCard({ title, userID }) {
                 ))
               ) : (
                 <TableRow>Set your {title} here!</TableRow>
-              )
-            }
+              )}
           </TableBody>
         </Table>
       </React.Fragment>
