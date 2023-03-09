@@ -22,7 +22,7 @@ import {
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
@@ -37,7 +37,8 @@ const SignUp = () => {
       firstName: firstName,
       lastName: lastName,
     };
-    createUser(profileObject, navigate);
+    await createUser(profileObject);
+    navigate("/");
   };
 
   return (

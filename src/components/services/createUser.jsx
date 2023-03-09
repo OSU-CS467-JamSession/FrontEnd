@@ -1,23 +1,8 @@
-export async function createUser(profileObject, navigate) {
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      mode: "no-cors",
-    },
-  };
+import * as React from "react";
+import { Navigate } from "react-router-dom";
 
+export async function createUser(profileObject, navigate) {
   try {
-    function promisedParseJSON(json) {
-      return new Promise((resolve, reject) => {
-        try {
-          resolve(JSON.parse(json));
-        } catch (e) {
-          reject(e);
-        }
-      });
-    }
     const email = profileObject.email;
     const lastName = profileObject.lastName;
     const firstName = profileObject.firstName;
@@ -37,7 +22,6 @@ export async function createUser(profileObject, navigate) {
       mode: "no-cors",
       // 'Authorization': `Bearer ${token}`,
     };
-    console.log(body);
     const response = await fetch(
       "https://jamsession-cs467-w2023.uw.r.appspot.com/users",
       {
@@ -49,8 +33,6 @@ export async function createUser(profileObject, navigate) {
 
     response.json().then((response) => {
       console.log("here");
-      navigate("./");
-
       return response.ok;
     });
   } catch (error) {

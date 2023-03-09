@@ -194,7 +194,11 @@ function DashboardContent() {
               </Grid>
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  Posts
+                  <ContentCard
+                    sx={{ display: "flex" }}
+                    title="posts"
+                    userID={userID}
+                  />
                 </Paper>
               </Grid>
             </Grid>
