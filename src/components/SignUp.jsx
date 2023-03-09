@@ -28,17 +28,19 @@ const SignUp = () => {
 
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    
-      const email =  data.get('email')
-      const password = data.get('password')
-      const firstName= data.get('firstName')
-      const lastName= data.get('lastName')
 
+    const email = data.get("email");
+    const password = data.get("password");
+    const firstName = data.get("firstName");
+    const lastName = data.get("lastName");
 
-    const profileObject = {email:email, password:password, firstName:firstName, lastName:lastName};
+    const profileObject = {
+      email: email,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
+    };
     createUser(profileObject, navigate);
-    
-
   };
 
   return (

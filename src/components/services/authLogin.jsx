@@ -1,5 +1,4 @@
 import { authenticateUserQ } from "./authenticateUser";
-import { getThisUserQ } from "./getThisUser";
 
 export async function authLogin(email, password){
     
