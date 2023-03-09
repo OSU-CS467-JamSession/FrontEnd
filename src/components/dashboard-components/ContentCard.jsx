@@ -11,12 +11,11 @@ const API_ROUTE = `https://jamsession-cs467-w2023.uw.r.appspot.com/users`;
 
 const INSTRUMENT_HEADERS = [
   "Instrument",
-  "Experience",
-  "Years Played",
+  "Type",
   "Delete",
 ];
 
-const GENRE_HEADERS = ["", ""];
+const GENRE_HEADERS = ["Genre", "Delete"];
 
 const MY_POSTS = ["", "Edit"];
 
@@ -89,20 +88,21 @@ export default function ContentCard({ title, userID }) {
           />
         </Title>
         <Table size="small">
-          {setTableHeaders()}
+        {userAttributes.length != 0 ? (setTableHeaders()) : null}
           <TableBody>
-            {userAttributes ? (
-              userAttributes.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell>{row.name}</TableCell>
-                  {row.type ? <TableCell>{row.type}</TableCell> : null}
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>Set your {title} here!</TableRow>
-            )}
+            {userAttributes.length != 0 ?
+              (
+                userAttributes.map((row) => (
+                  <TableRow key={row.id}>
+                    <TableCell>{row.name}</TableCell>
+                    {row.type ? <TableCell>{row.type}</TableCell> : null}
+                    <TableCell></TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>Set your {title} here!</TableRow>
+              )
+            }
           </TableBody>
         </Table>
       </React.Fragment>
