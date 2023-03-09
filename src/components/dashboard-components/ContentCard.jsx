@@ -91,16 +91,16 @@ export default function ContentCard({ title, userID }) {
           {userAttributes.length != 0 ? (setTableHeaders()) : null}
           <TableBody>
             {userAttributes.length != 0 ? (
-                userAttributes.map((row) => (
-                  <TableRow key={row.id}>
-                    <TableCell>{row.name}</TableCell>
-                    {row.type ? <TableCell>{row.type}</TableCell> : null}
-                    <TableCell></TableCell>
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow>Set your {title} here!</TableRow>
-              )}
+              userAttributes.map((row) => (
+                <TableRow key={row.id}>
+                  <TableCell>{row.name}</TableCell>
+                  {row.type ? <TableCell>{row.type}</TableCell> : null}
+                  <TableCell></TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>Set your {title} here!</TableRow>
+            )}
           </TableBody>
         </Table>
       </React.Fragment>
