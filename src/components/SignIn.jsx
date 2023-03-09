@@ -34,7 +34,7 @@ export default function SignIn() {
     const email = data.get("email");
     const password = data.get("password");
     // check for authentic login
-    isLogin(email, navigate);
+    isLogin(email, password, navigate);
   };
 
   return (

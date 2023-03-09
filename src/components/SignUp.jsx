@@ -22,7 +22,10 @@ import {
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
+
+    console.log("creating user")
+
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
@@ -37,8 +40,7 @@ const SignUp = () => {
       firstName: firstName,
       lastName: lastName,
     };
-    await createUser(profileObject);
-    navigate("/");
+    createUser(profileObject, navigate);
   };
 
   return (
@@ -104,13 +106,13 @@ const SignUp = () => {
             </Grid>
           </Grid>
           <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign Up
-          </Button>
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
           {/* <AlertDialog /> */}
           <Grid container justifyContent="flex-end">
             <Grid item>
