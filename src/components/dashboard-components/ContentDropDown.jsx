@@ -49,12 +49,12 @@ const StyledMenu = styled((props) => (
 }));
 
 export default function ContentDropDown(props) {
+  const { updateAttributeID } = props;
+  const { title } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [displayName, setDisplayName] = React.useState("Select an Instrument");
-  const [instruments, setInstruments] = React.useState([]);
+  const [displayName, setDisplayName] = React.useState(`${title}`);
+  const [payload, setPayload] = React.useState([]);
   const open = Boolean(anchorEl);
-
-  const { updateInstrumentID } = props;
 
   React.useEffect(() => {
     const options = {
@@ -62,20 +62,18 @@ export default function ContentDropDown(props) {
       headers: { "Content-Type": "application/json" },
     };
 
-    fetch(
-      `https://jamsession-cs467-w2023.uw.r.appspot.com/instruments`,
-      options
-    )
+    fetch(`https://jamsession-cs467-w2023.uw.r.appspot.com/${title}`, options)
       .then((response) => response.json())
-      .then((data) => setInstruments(data._embedded.instruments))
+      .then((data) => setPayload(data._embedded[`${title}`]))
       .catch((err) => console.error(err));
   }, []);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = (event, instrument) => {
-    updateInstrumentID(instrument.instrument_id);
+  const handleClose = (event, attribute) => {
+    let identifier = title.slice(0, -1) + "_id";
+    updateAttributeID(attribute[identifier]);
     setDisplayName(event.currentTarget.innerText);
     setAnchorEl(null);
   };
@@ -103,12 +101,12 @@ export default function ContentDropDown(props) {
         open={open}
         onClose={handleClose}
       >
-        {instruments.map((instrument) => (
+        {payload.map((attribute) => (
           <MenuItem
-            onClick={(event) => handleClose(event, instrument)}
+            onClick={(event) => handleClose(event, attribute)}
             disableRipple
           >
-            {instrument.name}
+            {attribute.name}
           </MenuItem>
         ))}
       </StyledMenu>

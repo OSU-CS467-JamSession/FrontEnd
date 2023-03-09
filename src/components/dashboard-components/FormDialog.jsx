@@ -7,11 +7,12 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import ContentDropDown from "./ContentDropDown";
 
-export default function FormDialog(props) {
+export default function FormDialog({ ...props }) {
   const [open, setOpen] = React.useState(false);
-  const [instrument_id, setInstrument_id] = React.useState(null);
+  const [attributeID, setAttributeID] = React.useState(null);
   const { userID } = props;
   const { setAttributeAdded } = props;
+  const { title } = props;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -22,11 +23,11 @@ export default function FormDialog(props) {
     const options = {
       method: "POST",
       headers: { "Content-Type": "text/uri-list" },
-      body: `https://jamsession-cs467-w2023.uw.r.appspot.com/users/${userID}/instruments/${instrument_id}`,
+      body: `https://jamsession-cs467-w2023.uw.r.appspot.com/users/${userID}/${title}/${attributeID}`,
     };
 
     fetch(
-      `https://jamsession-cs467-w2023.uw.r.appspot.com/users/${userID}/instruments`,
+      `https://jamsession-cs467-w2023.uw.r.appspot.com/users/${userID}/${title}`,
       options
     )
       .then((response) => setAttributeAdded(true))
@@ -49,10 +50,8 @@ export default function FormDialog(props) {
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Submit</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              Choose a new instrument to add
-            </DialogContentText>
-            <ContentDropDown updateInstrumentID={setInstrument_id} />
+            <DialogContentText>Choose a new {title} to add</DialogContentText>
+            <ContentDropDown updateAttributeID={setAttributeID} title={title} />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>

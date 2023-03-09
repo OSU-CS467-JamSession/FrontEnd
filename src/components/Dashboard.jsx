@@ -17,7 +17,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems } from "./ListItems";
-import ContentCard from "./Instruments/ContentCard";
+import ContentCard from "./dashboard-components/ContentCard";
 import { useLocation } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -70,6 +70,7 @@ const mdTheme = createTheme();
 
 function DashboardContent() {
   const [open, setOpen] = useState(true);
+  const [user, setUser] = useState(null);
   const location = useLocation();
   const userID = location.state;
   const toggleDrawer = () => {
@@ -87,7 +88,7 @@ function DashboardContent() {
       options
     )
       .then((response) => response.json())
-      .then((data) => console.log(data._links.instruments.href))
+      .then((data) => setUser(data))
       .catch((err) => console.error(err));
   }, []);
   return (
@@ -119,7 +120,7 @@ function DashboardContent() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              {/* {user.name_first}'s Dashboard */}
+              {user ? `${user.name_first}'s Dashboard` : "Loading..."}
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -168,7 +169,11 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                  <ContentCard title="Instruments" userID={userID} />
+                  <ContentCard
+                    sx={{ display: "flex" }}
+                    title="instruments"
+                    userID={userID}
+                  />
                 </Paper>
               </Grid>
               <Grid item xs={12} md={4} lg={3}>
@@ -179,7 +184,13 @@ function DashboardContent() {
                     flexDirection: "column",
                     height: 240,
                   }}
-                ></Paper>
+                >
+                  <ContentCard
+                    sx={{ display: "flex" }}
+                    title="genres"
+                    userID={userID}
+                  />
+                </Paper>
               </Grid>
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
