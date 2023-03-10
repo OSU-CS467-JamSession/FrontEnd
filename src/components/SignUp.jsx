@@ -15,6 +15,8 @@ import SelectLocation from "./signup-components/SelectLocation";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import SelectExperience from "./signup-components/SelectExperience";
+import Divider from '@mui/material/Divider';
 
 import {
   BrowserRouter as Router,
@@ -66,6 +68,10 @@ const SignUp = () => {
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
+            <Grid item xs={12}> 
+              <Divider sx={{ color: 'text.secondary' }} variant="middle" flexItem>User Info</Divider>
+            </Grid>
+
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="given-name"
@@ -99,10 +105,23 @@ const SignUp = () => {
                 />
               </LocalizationProvider>
             </Grid>
+            <Grid item xs={12} sm={6}>
+              <SelectExperience />
+            </Grid>
+
+            <Grid item xs={12}> 
+              <Divider sx={{ color: 'text.secondary' }} variant="middle" flexItem>Location</Divider>
+            </Grid>
+
             <Grid item xs={12}>
               <SelectLocation
               />
             </Grid>
+
+            <Grid item xs={12}> 
+              <Divider sx={{ color: 'text.secondary' }} variant="middle" flexItem>Login</Divider>
+            </Grid>
+
             <Grid item xs={12}>
               <TextField
                 required

@@ -1,8 +1,4 @@
 import * as React from 'react';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import { lookup } from 'zipcodes';
@@ -41,6 +37,8 @@ export default function SelectLocation() {
             
             onChange={handleChangeState}
           />
+        </Grid>
+        <Grid item xs={12} sm={6}>
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
