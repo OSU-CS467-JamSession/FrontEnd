@@ -40,13 +40,18 @@ const SignUp = () => {
     const firstName = data.get("firstName");
     const lastName = data.get("lastName");
 
+    // Display the key/value pairs
+    for (var pair of data.entries()) {
+      console.log(pair[0]+ ', ' + pair[1]); 
+    }
+
     const profileObject = {
       email: email,
       password: password,
       firstName: firstName,
       lastName: lastName,
     };
-    createUser(profileObject, navigate);
+    //createUser(profileObject, navigate);
   };
 
   return (

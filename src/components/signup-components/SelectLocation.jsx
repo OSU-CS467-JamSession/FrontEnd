@@ -21,8 +21,6 @@ export default function SelectLocation() {
     }
   };
 
-  console.log(lookup(zipcode));
-
   return (
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
@@ -30,30 +28,35 @@ export default function SelectLocation() {
             label="Zipcode"
             autoComplete="zipcode"
             name="locationZipcode"
-            required
-            fullWidth
-            value={zipcode}
             id="locationZipcode"
+            required
+            value={zipcode}
             
             onChange={handleChangeState}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} >
           <TextField
             label="City"
+            autoComplete="city"
+            name="locationCity"
+            id="locationCity"
             value={city}
-            disabled
-            readOnly={true}
+            readOnly
+            sx={{ input: { color: "text.disabled" } }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             label="State"
+            autoComplete="state"
+            name="locationState"
+            id="locationState"
             value={state}
-            disabled
-            readOnly={true}
+            readOnly
+            sx={{ input: { color: "text.disabled" } }}
           />
         </Grid>
     </Grid>
