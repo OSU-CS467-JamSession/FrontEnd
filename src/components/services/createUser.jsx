@@ -21,10 +21,15 @@ export async function createUser(profileObject, navigate){
       // 'Authorization': `Bearer ${token}`,
   }
 
-  const email = profileObject.email
-  const lastName = profileObject.lastName
-  const firstName = profileObject.firstName
-  const password = profileObject.password
+  const lastName = profileObject.lastName;
+  const firstName = profileObject.firstName;
+  const birthdate = profileObject.birthdate;
+  const experience = profileObject.experience;
+  const locationZipcode = profileObject.locationZipcode;
+  const locationCity = profileObject.locationCity;
+  const locationState = profileObject.locationState;
+  const password = profileObject.password;
+  const email = profileObject.email;
 
   try{
       function promisedParseJSON(json) {
@@ -38,9 +43,14 @@ export async function createUser(profileObject, navigate){
       }
       
       const userBody = {
-          "email": email,
           "name_first": firstName,
           "name_last": lastName,
+          "birthdate": birthdate,
+          "experience": experience,
+          "location_zipcode": locationZipcode,
+          "location_city": locationCity,
+          "location_state": locationState,
+          "email": email,
       }
   
       // create user

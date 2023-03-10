@@ -9,8 +9,11 @@ import Box from "@mui/material/Box";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import Divider from '@mui/material/Divider';
 // import AlertDialog from "./prompts/AlertDialog";
 import { createUser } from "./services/createUser";
+import SelectLocation from "./signup-components/SelectLocation";
+import SelectExperience from "./signup-components/SelectExperience";
 
 import {
   BrowserRouter as Router,
@@ -29,16 +32,29 @@ const SignUp = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    const email = data.get("email");
-    const password = data.get("password");
+
     const firstName = data.get("firstName");
     const lastName = data.get("lastName");
+    const birthdate = data.get("birthdate");
+    const experience = data.get("experience");
+
+    const locationZipcode = data.get("locationZipcode");
+    const locationCity = data.get("locationCity");
+    const locationState = data.get("locationState");
+
+    const email = data.get("email");
+    const password = data.get("password");
 
     const profileObject = {
-      email: email,
-      password: password,
       firstName: firstName,
       lastName: lastName,
+      birthdate: birthdate,
+      experience: experience,
+      locationZipcode: locationZipcode,
+      locationCity: locationCity,
+      locationState: locationState,
+      email: email,
+      password: password,
     };
     createUser(profileObject, navigate);
   };
@@ -62,6 +78,10 @@ const SignUp = () => {
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
+            <Grid item xs={12}> 
+              <Divider sx={{ color: 'text.secondary' }} variant="middle" flexItem>User Info</Divider>
+            </Grid>
+
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="given-name"
@@ -83,6 +103,35 @@ const SignUp = () => {
                 autoComplete="family-name"
               />
             </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                id="birthdate"
+                label="Date of Birth"
+                name="birthdate"
+                type="date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <SelectExperience />
+            </Grid>
+
+            <Grid item xs={12}> 
+              <Divider sx={{ color: 'text.secondary' }} variant="middle" flexItem>Location</Divider>
+            </Grid>
+
+            <Grid item xs={12}>
+              <SelectLocation />
+            </Grid>
+
+            <Grid item xs={12}> 
+              <Divider sx={{ color: 'text.secondary' }} variant="middle" flexItem>Login</Divider>
+            </Grid>
+
             <Grid item xs={12}>
               <TextField
                 required
@@ -90,7 +139,7 @@ const SignUp = () => {
                 id="email"
                 label="Email Address"
                 name="email"
-                autoComplete="email"
+                autoComplete="birthdate"
               />
             </Grid>
             <Grid item xs={12}>
@@ -112,7 +161,7 @@ const SignUp = () => {
               sx={{ mt: 3, mb: 2 }}
             >
               Sign Up
-            </Button>
+          </Button>
           {/* <AlertDialog /> */}
           <Grid container justifyContent="flex-end">
             <Grid item>
