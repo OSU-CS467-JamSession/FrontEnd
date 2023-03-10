@@ -15,12 +15,14 @@ export default function SelectLocation() {
 
   const handleChangeState = (event) => {
     setZipcode(event.target.value);
-    setState(lookup(zipcode).state);
-    setState(lookup(zipcode).city);
-  };
-
-  const handleChangeCity = (event) => {
-    setCity(event.target.value);
+    if(lookup(event.target.value)) {
+      setState(lookup(event.target.value).state);
+      setCity(lookup(event.target.value).city);
+    }
+    else {
+      setState("...");
+      setCity("...");
+    }
   };
 
   console.log(lookup(zipcode));
@@ -39,8 +41,6 @@ export default function SelectLocation() {
             
             onChange={handleChangeState}
           />
-        </Grid>
-        <Grid item xs={12} sm={6}>
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField

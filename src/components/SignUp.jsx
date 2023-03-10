@@ -12,10 +12,9 @@ import Container from "@mui/material/Container";
 // import AlertDialog from "./prompts/AlertDialog";
 import { createUser } from "./services/createUser";
 import SelectLocation from "./signup-components/SelectLocation";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import {
   BrowserRouter as Router,
@@ -88,14 +87,10 @@ const SignUp = () => {
                 autoComplete="family-name"
               />
             </Grid>
-            <Grid item xs={12}>
-              <SelectLocation
-              />
-            </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker 
-                  label="Birthdate"
+                  label="Birthdate *"
                   required
                   fullWidth
                   id="birthdate"
@@ -103,6 +98,10 @@ const SignUp = () => {
                   autoComplete="birthdate"
                 />
               </LocalizationProvider>
+            </Grid>
+            <Grid item xs={12}>
+              <SelectLocation
+              />
             </Grid>
             <Grid item xs={12}>
               <TextField
