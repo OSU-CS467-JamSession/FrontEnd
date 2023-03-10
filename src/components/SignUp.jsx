@@ -108,7 +108,7 @@ const SignUp = () => {
                 required
                 fullWidth
                 id="birthdate"
-                label="Birthdate"
+                label="Date of Birth"
                 name="birthdate"
                 type="date"
                 InputLabelProps={{
