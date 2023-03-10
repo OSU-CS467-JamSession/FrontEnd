@@ -32,23 +32,31 @@ const SignUp = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    const email = data.get("email");
-    const password = data.get("password");
+
     const firstName = data.get("firstName");
     const lastName = data.get("lastName");
+    const birthdate = data.get("birthdate");
+    const experience = data.get("experience");
 
-    // Display the key/value pairs
-    for (var pair of data.entries()) {
-      console.log(pair[0]+ ': ' + pair[1]); 
-    }
+    const locationZipcode = data.get("locationZipcode");
+    const locationCity = data.get("locationCity");
+    const locationState = data.get("locationState");
+
+    const email = data.get("email");
+    const password = data.get("password");
 
     const profileObject = {
-      email: email,
-      password: password,
       firstName: firstName,
       lastName: lastName,
+      birthdate: birthdate,
+      experience: experience,
+      locationZipcode: locationZipcode,
+      locationCity: locationCity,
+      locationState: locationState,
+      email: email,
+      password: password,
     };
-    //createUser(profileObject, navigate);
+    createUser(profileObject, navigate);
   };
 
   return (
