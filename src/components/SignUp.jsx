@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 // import AlertDialog from "./prompts/AlertDialog";
 import { createUser } from "./services/createUser";
+import SelectLocation from "./signup-components/SelectLocation";
 
 import {
   BrowserRouter as Router,
@@ -81,6 +82,10 @@ const SignUp = () => {
                 label="Last Name"
                 name="lastName"
                 autoComplete="family-name"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <SelectLocation
               />
             </Grid>
             <Grid item xs={12}>
