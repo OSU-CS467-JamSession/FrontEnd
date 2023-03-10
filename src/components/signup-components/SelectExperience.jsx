@@ -15,9 +15,11 @@ export default function SelectExperience() {
       <FormControl fullWidth>
         <InputLabel id="experience-label" required>Experience</InputLabel>
         <Select
+          label="Experience"
+          autoComplete="experience"
+          name="experience"
           id="experience"
           value={exp}
-          label="Experience"
           required
           onChange={handleChange}
         >

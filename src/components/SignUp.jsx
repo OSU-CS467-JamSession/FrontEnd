@@ -9,14 +9,11 @@ import Box from "@mui/material/Box";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import Divider from '@mui/material/Divider';
 // import AlertDialog from "./prompts/AlertDialog";
 import { createUser } from "./services/createUser";
 import SelectLocation from "./signup-components/SelectLocation";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import SelectExperience from "./signup-components/SelectExperience";
-import Divider from '@mui/material/Divider';
 
 import {
   BrowserRouter as Router,
@@ -42,7 +39,7 @@ const SignUp = () => {
 
     // Display the key/value pairs
     for (var pair of data.entries()) {
-      console.log(pair[0]+ ', ' + pair[1]); 
+      console.log(pair[0]+ ': ' + pair[1]); 
     }
 
     const profileObject = {
@@ -99,16 +96,17 @@ const SignUp = () => {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker 
-                  label="Birthdate *"
-                  required
-                  fullWidth
-                  id="birthdate"
-                  name="birthdate"
-                  autoComplete="birthdate"
-                />
-              </LocalizationProvider>
+              <TextField
+                required
+                fullWidth
+                id="birthdate"
+                label="Birthdate"
+                name="birthdate"
+                type="date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
               <SelectExperience />
@@ -119,8 +117,7 @@ const SignUp = () => {
             </Grid>
 
             <Grid item xs={12}>
-              <SelectLocation
-              />
+              <SelectLocation />
             </Grid>
 
             <Grid item xs={12}> 
@@ -156,7 +153,7 @@ const SignUp = () => {
               sx={{ mt: 3, mb: 2 }}
             >
               Sign Up
-            </Button>
+          </Button>
           {/* <AlertDialog /> */}
           <Grid container justifyContent="flex-end">
             <Grid item>
