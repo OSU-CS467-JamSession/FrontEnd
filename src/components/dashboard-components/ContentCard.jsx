@@ -6,6 +6,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Title from "../Title";
 import FormDialog from "./FormDialog";
+import DeleteButton from "./DeleteButton";
+import DeleteDialog from "./DeleteDialog";
 
 const API_ROUTE = `https://jamsession-cs467-w2023.uw.r.appspot.com/users`;
 
@@ -86,7 +88,14 @@ export default function ContentCard({ title, userID }) {
               <TableRow key={row.id}>
                 <TableCell>{row.name}</TableCell>
                 {row.type ? <TableCell>{row.type}</TableCell> : null}
-                <TableCell></TableCell>
+                <TableCell>
+                  <DeleteDialog 
+                    userID = {userID} 
+                    row = {row} 
+                    title = {title} 
+                    name = {row.name}
+                    setAttributeAdded={setAttributeAdded}
+                /></TableCell>
               </TableRow>
             ))
           ) : (
