@@ -16,6 +16,7 @@
     "dayjs": "^1.11.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-file-picker": "^0.0.6",
     "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
     "zipcodes": "^8.0.0"
