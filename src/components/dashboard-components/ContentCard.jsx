@@ -9,11 +9,7 @@ import FormDialog from "./FormDialog";
 
 const API_ROUTE = `https://jamsession-cs467-w2023.uw.r.appspot.com/users`;
 
-const INSTRUMENT_HEADERS = [
-  "Instrument",
-  "Type",
-  "Delete",
-];
+const INSTRUMENT_HEADERS = ["Instrument", "Type", "Delete"];
 
 const GENRE_HEADERS = ["Genre", "Delete"];
 
@@ -57,9 +53,6 @@ export default function ContentCard({ title, userID }) {
     if (title == "genres") {
       tableHeaders = GENRE_HEADERS;
     }
-    if (title == "posts") {
-      tableHeaders = MY_POSTS;
-    }
 
     return (
       console.log(userAttributes),
@@ -76,34 +69,31 @@ export default function ContentCard({ title, userID }) {
   };
 
   return (
-    console.log(attributeAdded),
-    (
-      <React.Fragment>
-        <Title>
-          {title.charAt(0).toUpperCase() + title.slice(1)}
-          <FormDialog
-            userID={userID}
-            setAttributeAdded={setAttributeAdded}
-            title={title}
-          />
-        </Title>
-        <Table size="small">
-          {userAttributes.length != 0 ? (setTableHeaders()) : null}
-          <TableBody>
-            {userAttributes.length != 0 ? (
-              userAttributes.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell>{row.name}</TableCell>
-                  {row.type ? <TableCell>{row.type}</TableCell> : null}
-                  <TableCell></TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>Set your {title} here!</TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </React.Fragment>
-    )
+    <React.Fragment>
+      <Title>
+        {title.charAt(0).toUpperCase() + title.slice(1)}
+        <FormDialog
+          userID={userID}
+          setAttributeAdded={setAttributeAdded}
+          title={title}
+        />
+      </Title>
+      <Table size="small">
+        {userAttributes.length != 0 ? setTableHeaders() : null}
+        <TableBody>
+          {userAttributes.length != 0 ? (
+            userAttributes.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell>{row.name}</TableCell>
+                {row.type ? <TableCell>{row.type}</TableCell> : null}
+                <TableCell></TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>Set your {title} here!</TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </React.Fragment>
   );
 }

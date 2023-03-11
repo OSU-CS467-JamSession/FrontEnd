@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Divider from '@mui/material/Divider';
+import Divider from "@mui/material/Divider";
 // import AlertDialog from "./prompts/AlertDialog";
 import { createUser } from "./services/createUser";
 import SelectLocation from "./signup-components/SelectLocation";
@@ -26,12 +26,10 @@ import {
 const SignUp = () => {
   const navigate = useNavigate();
   const handleSubmit = (event) => {
-
-    console.log("creating user")
+    console.log("creating user");
 
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
 
     const firstName = data.get("firstName");
     const lastName = data.get("lastName");
@@ -78,8 +76,14 @@ const SignUp = () => {
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12}> 
-              <Divider sx={{ color: 'text.secondary' }} variant="middle" flexItem>User Info</Divider>
+            <Grid item xs={12}>
+              <Divider
+                sx={{ color: "text.secondary" }}
+                variant="middle"
+                flexItem
+              >
+                User Info
+              </Divider>
             </Grid>
 
             <Grid item xs={12} sm={6}>
@@ -120,16 +124,28 @@ const SignUp = () => {
               <SelectExperience />
             </Grid>
 
-            <Grid item xs={12}> 
-              <Divider sx={{ color: 'text.secondary' }} variant="middle" flexItem>Location</Divider>
+            <Grid item xs={12}>
+              <Divider
+                sx={{ color: "text.secondary" }}
+                variant="middle"
+                flexItem
+              >
+                Location
+              </Divider>
             </Grid>
 
             <Grid item xs={12}>
               <SelectLocation />
             </Grid>
 
-            <Grid item xs={12}> 
-              <Divider sx={{ color: 'text.secondary' }} variant="middle" flexItem>Login</Divider>
+            <Grid item xs={12}>
+              <Divider
+                sx={{ color: "text.secondary" }}
+                variant="middle"
+                flexItem
+              >
+                Login
+              </Divider>
             </Grid>
 
             <Grid item xs={12}>
@@ -155,14 +171,13 @@ const SignUp = () => {
             </Grid>
           </Grid>
           <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign Up
           </Button>
-          {/* <AlertDialog /> */}
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="./" variant="body2">

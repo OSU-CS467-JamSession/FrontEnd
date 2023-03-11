@@ -18,6 +18,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems } from "./ListItems";
 import ContentCard from "./dashboard-components/ContentCard";
+import UserPostContentCard from "./user-posts/UserPostContentCard";
 import { useLocation } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -192,11 +193,7 @@ function DashboardContent() {
               </Grid>
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <ContentCard
-                    sx={{ display: "flex" }}
-                    title="posts"
-                    userID={userID}
-                  />
+                  <UserPostContentCard title="posts" userID={userID} />
                 </Paper>
               </Grid>
             </Grid>
