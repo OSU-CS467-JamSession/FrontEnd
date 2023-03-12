@@ -10,6 +10,7 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import QueueIcon from '@mui/icons-material/Queue';
+import Divider from '@mui/material/Divider'
 import { People, Speaker } from '@mui/icons-material';
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
@@ -29,6 +30,13 @@ export default function ListItems() {
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton>
+    <Divider
+      sx={{ color: "text.secondary" }}
+      variant="middle"
+      flexItem
+    >
+      Search
+    </Divider>
     <ListItemButton>
       <ListItemIcon>
         <QueueIcon />
