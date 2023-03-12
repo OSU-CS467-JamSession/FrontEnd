@@ -15,7 +15,7 @@ const INSTRUMENT_HEADERS = ["Instrument", "Type", "Delete"];
 
 const GENRE_HEADERS = ["Genre", "Delete"];
 
-const MY_POSTS = ["", "Edit"];
+const MY_POSTS = ["", "Delete"];
 
 // Generate Order Data
 function createData(name, type) {
@@ -55,7 +55,9 @@ export default function ContentCard({ title, userID }) {
     if (title == "genres") {
       tableHeaders = GENRE_HEADERS;
     }
-
+    if (title == "posts") {
+      tableHeaders = MY_POSTS;
+    }
     return (
       console.log(userAttributes),
       (

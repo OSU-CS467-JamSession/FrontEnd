@@ -14,24 +14,33 @@ export default function DeleteDialog({ ...props }) {
     const handleClick = (event) => {
     
     event.preventDefault();
-    const base_url = 'https://jamsession-cs467-w2023.uw.r.appspot.com/users/'
-    const UserID_str = JSON.stringify(userID)
+ 
+    var UserID_str = JSON.stringify(userID)
 
     const requestOptions = {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*", 'mode':'no-cors'},
     };
-
+    let base_url = 'https://jamsession-cs467-w2023.uw.r.appspot.com/'
     var attributeID = null
-
+  
     if (title == "instruments"){
     console.log(row.instrument_id)
     attributeID = row.instrument_id
+    base_url = base_url + 'users/'
     }
     if (title == "genres"){
     console.log(row.genre_id)
     attributeID = row.genre_id
+    base_url = base_url + 'users/'
     }
+    if (title == "posts"){
+    console.log(row.post_id)
+    attributeID = row.post_id
+    UserID_str = "";
+    }
+
+    console.log(title)
 
     const end_point = `${base_url}${UserID_str}/${title}/${attributeID}`
     console.log(end_point)
