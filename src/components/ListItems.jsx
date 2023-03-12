@@ -10,12 +10,20 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import QueueIcon from '@mui/icons-material/Queue';
-import { Piano, Speaker } from '@mui/icons-material';
+import { People, Speaker } from '@mui/icons-material';
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
+export default function ListItems() {
 
-export const mainListItems = (
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const userID = location.state;
+  console.log("UserID: ", userID)
+
+  return (
   <React.Fragment>
-    <ListItemButton>
+    <ListItemButton onClick= { () => navigate('/Profile', {state: userID})}>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
@@ -33,12 +41,12 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Sessions" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton onClick= { () => navigate('/Users', {state: userID})}>
       <ListItemIcon>
-        <Piano />
+        <People />
       </ListItemIcon>
-      <ListItemText primary="Skills" />
+      <ListItemText primary="Users" />
     </ListItemButton>
-    
   </React.Fragment>
-);
+  )
+}

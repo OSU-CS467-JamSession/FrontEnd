@@ -12,6 +12,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
+import SearchUsers from "./components/SearchUsers";
 
 ReactDOM.createRoot(document.querySelector("#app")).render(
   <>
@@ -21,6 +22,7 @@ ReactDOM.createRoot(document.querySelector("#app")).render(
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/RecoverPass" element={<RecoverPass />} />
         <Route path="/Profile" element={<Dashboard />} />
+        <Route path="/Users" element={<SearchUsers />} />
       </Routes>
     </BrowserRouter>{" "}
     */
