@@ -33,27 +33,23 @@ export default function CreatePost({ ...props }) {
     if (!audioFile) {
       return;
     }
+
     const data = new FormData(event.currentTarget);
+    data.append("user_id", userID);
+    data.append("datetime", "datetime here")
 
-    console.log(data.get("title"), userID);
-
-    const reqBody = {
-      file: audioFile,
-      title: data.get("title"),
-      description: data.get("description"),
-      user_id: userID,
-    };
-
-    console.log(reqBody);
+    // for (var pair in data.entries()) {
+    //   console.log(pair[0], ": ", pair[1]);
+    // }
 
     const options = {
       method: "POST",
-      headers: { "Content-Type": "text/uri-list" },
-      body: reqBody,
+      headers: { "Accept": "*/*", "Access-Control-Allow-Origin": "*" },
+      mode: "no-cors",
+      body: data,
     };
-    //TODO I'm not sure I'm using the correct endpoint here
-    //keep getting a 500 error on post
-    fetch(`https://jamsession-cs467-w2023.uw.r.appspot.com/posts`, options)
+
+    fetch("https://jamsession-cs467-w2023.uw.r.appspot.com/posts/", options)
       .then((response) => setAttributeAdded(true))
       .catch((err) => console.error(err));
 
@@ -89,6 +85,7 @@ export default function CreatePost({ ...props }) {
               </Typography>
               <Box
                 component="form"
+                encType="multipart/form-data"
                 noValidate
                 onSubmit={handleSubmit}
                 sx={{ mt: 3 }}
@@ -112,17 +109,15 @@ export default function CreatePost({ ...props }) {
                       label="Post Description"
                     />
                   </Grid>
-                  <Grid item xs={12}></Grid>
-                </Grid>
-                <input
-                  type="file"
-                  id="avatar"
-                  name="avatar"
-                  accept="mp3, mpeg"
-                  onChange={handleFileSelect}
-                />
-                <Grid container justifyContent="flex-end">
-                  <Grid item></Grid>
+                  <Grid item xs={12}>
+                    <input
+                      type="file"
+                      id="file"
+                      name="file"
+                      accept="mp3, mpeg"
+                      onChange={handleFileSelect}
+                    />
+                  </Grid>
                 </Grid>
                 <Button
                   type="submit"

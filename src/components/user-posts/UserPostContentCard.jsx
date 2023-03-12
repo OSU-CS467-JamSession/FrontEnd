@@ -4,7 +4,7 @@ import Title from "../Title";
 import CreatePost from "./CreatePost";
 import UserPost from "./UserPost";
 
-const API_ROUTE = `https://jamsession-cs467-w2023.uw.r.appspot.com`;
+const API_ROUTE = "https://jamsession-cs467-w2023.uw.r.appspot.com";
 
 export default function UserPostsContentCard({ title, userID }) {
   const [userAttributes, setUserAttributes] = useState([]);
@@ -23,7 +23,6 @@ export default function UserPostsContentCard({ title, userID }) {
   }, [attributeAdded]);
 
   return (
-    console.log(userID),
     (
       <React.Fragment>
         <Title>
