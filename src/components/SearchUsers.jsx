@@ -19,7 +19,8 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import ListItems from "./ListItems";
 import ContentCard from "./dashboard-components/ContentCard";
 import UserPostContentCard from "./user-posts/UserPostContentCard";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import SearchUsersForm from "./search-components/SearchUsersForm";
 
 const drawerWidth = 240;
 
@@ -69,7 +70,7 @@ const Drawer = styled(MuiDrawer, {
 
 const mdTheme = createTheme();
 
-function DashboardContent() {
+function SearchContent() {
   const [open, setOpen] = useState(true);
   const [user, setUser] = useState(null);
   const location = useLocation();
@@ -121,7 +122,7 @@ function DashboardContent() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              {user ? `${user.name_first}'s Dashboard` : "Loading..."}
+              {user ? "Discover musicians and artists!" : "Loading..."}
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -160,43 +161,7 @@ function DashboardContent() {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <ContentCard
-                    sx={{ display: "flex" }}
-                    title="instruments"
-                    userID={userID}
-                  />
-                </Paper>
-              </Grid>
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <ContentCard
-                    sx={{ display: "flex" }}
-                    title="genres"
-                    userID={userID}
-                  />
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <UserPostContentCard title="posts" userID={userID} />
-                </Paper>
-              </Grid>
-            </Grid>
+              <SearchUsersForm />
           </Container>
         </Box>
       </Box>
@@ -204,6 +169,6 @@ function DashboardContent() {
   );
 }
 
-export default function Dashboard() {
-  return <DashboardContent />;
+export default function SearchUsers() {
+  return <SearchContent />;
 }
