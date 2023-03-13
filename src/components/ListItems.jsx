@@ -2,6 +2,7 @@ import * as React from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import ListItem from '@mui/material/ListItem';
 import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -30,13 +31,9 @@ export default function ListItems() {
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton>
-    <Divider
-      sx={{ color: "text.secondary" }}
-      variant="middle"
-      flexItem
-    >
-      Search
-    </Divider>
+
+    <Divider light/>
+    
     <ListItemButton>
       <ListItemIcon>
         <QueueIcon />
