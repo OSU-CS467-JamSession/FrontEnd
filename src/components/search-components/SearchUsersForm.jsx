@@ -15,13 +15,15 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { isRouteErrorResponse, useLocation, useNavigate } from 'react-router-dom';
 
 export default function SearchUsersForm() {
   const [experience, setExperience] = React.useState('');
   const [instrument, setInstrument] = React.useState('');
   const [genre, setGenre] = React.useState('');
   const [data, setData] = React.useState();
+  const [instruments, setInstruments] = React.useState();
+  const [genres, setGenres] = React.useState();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -53,8 +55,54 @@ export default function SearchUsersForm() {
 
   const experienceMap = ["N/A", "Novice", "Advanced Beginner", "Competent", "Proficient", "Expert"]
 
+  const generateInstrumentsMenu = (data) => {
+    if(data) {
+      data.sort(((a, b) => a.name.localeCompare(b.name)));
+      return (
+        <Select
+          label="Instrument"
+          name="instrument"
+          id="instrument"
+          value={instrument}
+          onChange={handleChangeInstrument}
+        >
+          {data.map((obj) => (
+            <MenuItem 
+              key={obj.instrument_id}
+              value={obj.instrument_id}
+            >{obj.name}</MenuItem>
+          ))}
+        </Select>
+      )
+    }
+  }
+
+  const generateGenresMenu = (data) => {
+    if(data) {
+      data.sort(((a, b) => a.name.localeCompare(b.name)));
+      return (
+        <Select
+          label="Genre"
+          name="genre"
+          id="genre"
+          value={genre}
+          onChange={handleChangeGenre}
+        >
+          {data.map((obj) => (
+            <MenuItem 
+              key={obj.genre_id}
+              value={obj.genre_id}
+            >{obj.name}</MenuItem>
+          ))}
+        </Select>
+      )
+    }
+  }
+
   const generateUsersTable = (data) => {
     if(data) {
+      data.sort(((a, b) => a.name_first.localeCompare(b.name_first)));
+      console.log(data);
       return (
         <Table>
           <TableHead>
@@ -64,7 +112,7 @@ export default function SearchUsersForm() {
               ))}
             </TableRow>
             {data.map((user) => (
-              <TableRow>
+              <TableRow key={user.user_id}>
                 <TableCell>
                   {user.name_first + " " + user.name_last}
                 </TableCell>
@@ -115,8 +163,23 @@ export default function SearchUsersForm() {
       .then((response) => setData(response._embedded.users))
       .catch((err) => console.error(err));  
     }
-    
-    console.log(data);
+
+    fetch(
+      "https://jamsession-cs467-w2023.uw.r.appspot.com/instruments?size=250",
+      options
+    )
+    .then((response) => response.json())
+    .then((response) => setInstruments(response._embedded.instruments))
+    .catch((err) => console.error(err));
+
+    fetch(
+      "https://jamsession-cs467-w2023.uw.r.appspot.com/genres?size=100",
+      options
+    )
+    .then((response) => response.json())
+    .then((response) => setGenres(response._embedded.genres))
+    .catch((err) => console.error(err));
+
   }, [experience, instrument, genre]);
 
   return (
@@ -143,29 +206,13 @@ export default function SearchUsersForm() {
         <Grid item xs={12} sm={4}>
           <FormControl fullWidth>
             <InputLabel id="instrument-label">Instrument</InputLabel>
-            <Select
-              label="Instrument"
-              name="instrument"
-              id="instrument"
-              value={instrument}
-              onChange={handleChangeInstrument}
-            >
-              <MenuItem value={1}>Novice</MenuItem>
-            </Select>
+            {generateInstrumentsMenu(instruments)}
           </FormControl>
         </Grid>
         <Grid item xs={12} sm={4}>
           <FormControl fullWidth>
             <InputLabel id="instrument-label">Genre</InputLabel>
-            <Select
-              label="Genre"
-              name="genre"
-              id="genre"
-              value={genre}
-              onChange={handleChangeGenre}
-            >
-              <MenuItem value={1}>Novice</MenuItem>
-            </Select>
+            {generateGenresMenu(genres)}
           </FormControl>
         </Grid>
       </Grid>
