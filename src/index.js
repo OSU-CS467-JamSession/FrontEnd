@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import SearchUsers from "./components/SearchUsers";
+import SearchPosts from "./components/SearchPosts";
 
 ReactDOM.createRoot(document.querySelector("#app")).render(
   <>
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.querySelector("#app")).render(
         <Route path="/RecoverPass" element={<RecoverPass />} />
         <Route path="/Profile" element={<Dashboard />} />
         <Route path="/Users" element={<SearchUsers />} />
+        <Route path="/Posts" element={<SearchPosts />} />
       </Routes>
     </BrowserRouter>{" "}
     */
