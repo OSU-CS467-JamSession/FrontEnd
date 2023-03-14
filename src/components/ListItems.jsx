@@ -30,13 +30,9 @@ export default function ListItems() {
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton>
-    <Divider
-      sx={{ color: "text.secondary" }}
-      variant="middle"
-      flexItem
-    >
-      Search
-    </Divider>
+
+    <Divider light/>
+    
     <ListItemButton>
       <ListItemIcon>
         <QueueIcon />
