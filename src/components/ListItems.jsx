@@ -33,8 +33,8 @@ export default function ListItems() {
     </ListItemButton>
 
     <Divider light/>
-    
-    <ListItemButton>
+
+    <ListItemButton onClick= { () => navigate('/Posts', {state: userID})}>
       <ListItemIcon>
         <QueueIcon />
       </ListItemIcon>
